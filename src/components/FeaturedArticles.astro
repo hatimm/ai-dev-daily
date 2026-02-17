@@ -1,0 +1,437 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const featuredPost = sortedPosts.find(post => post.data.featured) || sortedPosts[0];
+const otherPosts = sortedPosts.filter(post => post.slug !== featuredPost.slug).slice(0, 4);
+
+const articles = [
+  {
+    featured: true,
+    image: featuredPost?.data.image || '/blog/images/placeholder.jpg',
+    category: featuredPost?.data.category || 'Featured',
+    date: featuredPost?.data.date || '2026-02-16',
+    readTime: `${featuredPost?.data.readTime || 10} min read`,
+    title: featuredPost?.data.title || 'The Future of AI',
+    excerpt: featuredPost?.data.excerpt || 'Explore the cutting-edge developments in AI.',
+  },
+  ...otherPosts.map(post => ({
+    featured: false,
+    image: post.data.image,
+    category: post.data.category,
+    date: post.data.date,
+    readTime: `${post.data.readTime} min read`,
+    title: post.data.title,
+  }))
+];
+---
+
+<section class="featured-section" id="featured">
+  <div class="section-header">
+    <div class="header-badge">
+      <span class="badge-dot"></span>
+      Latest Content
+    </div>
+    <h2>Featured Articles</h2>
+    <p>Discover the latest trends, tutorials, and insights from the world of AI</p>
+  </div>
+  
+  <div class="featured-grid">
+    {articles.map((article, index) => (
+      <article 
+        class={`featured-card ${article.featured ? 'featured' : ''}`}
+        data-animate="card"
+        style={`--delay: ${index * 0.1}s`}
+      >
+        <a href={`/blog/${featuredPost?.slug || 'article'}`} class="card-link">
+          <div class="card-image-wrapper">
+            <img src={article.image} alt={article.title} class="card-image" loading="lazy" />
+            <span class="card-category">{article.category}</span>
+            <div class="card-overlay">
+              <span class="read-more">Read Article</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="date">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                {article.date}
+              </span>
+              <span class="read-time">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                {article.readTime}
+              </span>
+            </div>
+            <h3 class="card-title">{article.title}</h3>
+            {article.excerpt && <p class="card-excerpt">{article.excerpt}</p>}
+            <div class="card-footer">
+              <span class="card-read-time">
+                Read more
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div class="card-shine"></div>
+        </a>
+      </article>
+    ))}
+  </div>
+  
+  <div class="view-all-wrapper">
+    <a href="/blog" class="view-all-btn">
+      View All Articles
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .featured-section {
+    padding: 7rem 2rem;
+    background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108, 43, 217, 0.2), transparent);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(108, 43, 217, 0.08);
+    border: 1px solid rgba(108, 43, 217, 0.15);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--purple-primary);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .header-badge .badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--purple-primary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .section-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+    letter-spacing: -0.02em;
+  }
+
+  .section-header p {
+    color: var(--gray-600);
+    font-size: 1.15rem;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  .featured-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .featured-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .featured-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .featured-card:hover {
+    transform: translateY(-12px);
+    border-color: rgba(108, 43, 217, 0.3);
+    box-shadow: 0 25px 60px rgba(108, 43, 217, 0.15);
+  }
+
+  .featured-card.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .featured-card:hover .card-shine {
+    opacity: 1;
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .featured-card.featured .card-image {
+    height: 320px;
+  }
+
+  .featured-card:hover .card-image {
+    transform: scale(1.08);
+  }
+
+  .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(108, 43, 217, 0.8) 0%, transparent 60%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .featured-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .read-more {
+    color: var(--white);
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .featured-card:hover .read-more {
+    transform: translateY(0);
+  }
+
+  .card-category {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    color: var(--white);
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+  }
+
+  .card-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .card-meta svg {
+    opacity: 0.7;
+  }
+
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.35;
+    color: var(--gray-800);
+    transition: color 0.3s ease;
+  }
+
+  .featured-card:hover .card-title {
+    color: var(--purple-primary);
+  }
+
+  .featured-card.featured .card-title {
+    font-size: 1.9rem;
+  }
+
+  .card-excerpt {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  .card-read-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--purple-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .card-read-time svg {
+    transition: transform 0.3s ease;
+  }
+
+  .featured-card:hover .card-read-time svg {
+    transform: translateX(4px);
+  }
+
+  .view-all-wrapper {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gray-800);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .view-all-btn:hover {
+    background: var(--purple-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.3);
+  }
+
+  .view-all-btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .view-all-btn:hover svg {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 1024px) {
+    .featured-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .featured-card.featured {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    .section-header h2 { font-size: 2.5rem; }
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+    .featured-card.featured { grid-column: span 1; }
+    .featured-card.featured .card-image { height: 220px; }
+    .section-header h2 { font-size: 2rem; }
+  }
+</style>
+
+<script>
+  // Card animations
+  const cards = document.querySelectorAll('[data-animate="card"]');
+  
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.getAttribute('style')?.match(/--delay:\s*(\d+\.?\d*)s/)?.[1] || '0';
+        setTimeout(() => {
+          entry.target.classList.add('animate');
+        }, parseFloat(delay) * 1000);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  cards.forEach(card => cardObserver.observe(card));
+</script>

@@ -1,0 +1,185 @@
+---
+const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const categories = [
+  { label: 'AI Trends', href: '/blog' },
+  { label: 'Dev Build', href: '/blog' },
+  { label: 'Dev Tools', href: '/blog' },
+  { label: 'Tech Gear', href: '/blog' },
+];
+
+const legal = [
+  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms & Conditions', href: '/terms' },
+];
+---
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img
+        src="https://aidevdaily.com/wp-content/uploads/2025/02/e49aaf2e-a5be-4656-a154-8c7ad3090d3b-1024x242.png"
+        alt="AI Dev Daily"
+        class="footer-logo"
+      />
+      <p>
+        Your daily source for cutting-edge artificial intelligence news, tutorials, and insights. Built for developers, by developers.
+      </p>
+      <div class="footer-social">
+        <a href="https://x.com/ai_dev_daily" aria-label="Twitter" target="_blank">𝕏</a>
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        {quickLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Categories</h4>
+      <ul>
+        {categories.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Legal</h4>
+      <ul>
+        {legal.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 AI Dev Daily. All rights reserved.</p>
+    <p>Built with ❤️ for the developer community</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--gray-800);
+    color: var(--gray-300);
+    padding: 4rem 2rem 2rem;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand p {
+    color: var(--gray-400);
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  .footer-logo {
+    height: 35px;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .footer-social a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .footer-social a:hover {
+    background: var(--purple-primary);
+    transform: translateY(-3px);
+  }
+
+  .footer-links h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+
+  .footer-links ul {
+    list-style: none;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-links a {
+    color: var(--gray-400);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--purple-light);
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-bottom p {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 1024px) {
+    .footer-content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

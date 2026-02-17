@@ -1,0 +1,609 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import FeaturedArticles from '../components/FeaturedArticles.astro';
+import Categories from '../components/Categories.astro';
+import Newsletter from '../components/Newsletter.astro';
+import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const categories = [
+  { name: 'AI Trends', icon: '🤖', color: '#8b5cf6' },
+  { name: 'Dev Build', icon: '💻', color: '#10b981' },
+  { name: 'Dev Tools', icon: '🔧', color: '#f59e0b' },
+  { name: 'Tech Gear', icon: '📱', color: '#ef4444' }
+];
+
+const latestPosts = sortedPosts.slice(0, 6);
+---
+
+<Layout title="AI Dev Daily - Your Daily AI News Hub">
+  <Loader />
+  <Header />
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="grid-pattern"></div>
+        <div class="floating-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+        </div>
+      </div>
+      <div class="hero-content">
+        <div class="badge" data-animate="fade-up">
+          <span class="badge-dot"></span>
+          Fresh AI Insights Daily
+        </div>
+        <h1 data-animate="fade-up" data-delay="1">
+          Stay Ahead of the <span class="gradient-text">AI Revolution</span>
+        </h1>
+        <p data-animate="fade-up" data-delay="2">
+          Your daily source for cutting-edge artificial intelligence news, tutorials, and insights. Built for developers, by developers.
+        </p>
+        <div class="hero-buttons" data-animate="fade-up" data-delay="3">
+          <a href="#latest" class="btn-primary">
+            <span>Latest Articles</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#categories" class="btn-secondary">
+            <span>Browse Topics</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="latest-section" id="latest">
+      <div class="container">
+        <div class="section-header">
+          <h2>Latest Articles</h2>
+          <p>Stay updated with the newest AI news and tutorials</p>
+        </div>
+        <div class="posts-grid">
+          {latestPosts.map((post, index) => (
+            <article class="post-card" data-animate="card" style={`--delay: ${index * 0.1}s`}>
+              <a href={`/blog/${post.slug}`} class="post-link">
+                <div class="post-image">
+                  <img src={post.data.image} alt={post.data.title} loading="lazy" />
+                  <span class="post-category">{post.data.category}</span>
+                </div>
+                <div class="post-content">
+                  <div class="post-meta">
+                    <span>{post.data.date}</span>
+                    <span>•</span>
+                    <span>{post.data.readTime} min read</span>
+                  </div>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.excerpt}</p>
+                  <span class="read-more">Read more →</span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+        <div class="view-all-wrapper">
+          <a href="/blog" class="view-all-btn">
+            View All Articles
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section" id="categories">
+      <div class="container">
+        <div class="section-header">
+          <h2>Explore Topics</h2>
+          <p>Find articles by category</p>
+        </div>
+        <div class="categories-grid">
+          {categories.map((cat, index) => (
+            <a href="/blog" class="category-card" data-animate="card" style={`--delay: ${index * 0.1}s; --accent: ${cat.color}`}>
+              <div class="category-icon">{cat.icon}</div>
+              <h3>{cat.name}</h3>
+              <p>{cat.name === 'AI Trends' ? 'Latest breakthroughs and innovations' : 
+                  cat.name === 'Dev Build' ? 'Tutorials and how-to guides' : 
+                  cat.name === 'Dev Tools' ? 'Reviews and recommendations' : 
+                  'Gadgets and hardware'}</p>
+              <span class="category-arrow">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <Newsletter />
+
+    <!-- Featured Articles -->
+    <FeaturedArticles />
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    animation: orbFloat 15s infinite ease-in-out;
+  }
+
+  .orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(108, 43, 217, 0.15) 0%, transparent 70%);
+    top: -150px;
+    left: -100px;
+  }
+
+  .orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -7s;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(108, 43, 217, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108, 43, 217, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .floating-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .shape-1 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(108, 43, 217, 0.1) 0%, transparent 70%);
+    top: 30%;
+    right: 15%;
+  }
+
+  .shape-2 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
+    bottom: 20%;
+    left: 10%;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(20px, -20px); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(108, 43, 217, 0.1);
+    border: 1px solid rgba(108, 43, 217, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--purple-primary);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--purple-primary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--gray-800);
+    line-height: 1.15;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-light) 100%);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.35);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    color: var(--gray-800);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid var(--gray-200);
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--purple-primary);
+    color: var(--purple-primary);
+  }
+
+  /* Latest Section */
+  .latest-section {
+    padding: 6rem 2rem;
+    background: var(--white);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header p {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .post-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .post-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .post-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(108, 43, 217, 0.3);
+    box-shadow: 0 20px 50px rgba(108, 43, 217, 0.12);
+  }
+
+  .post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .post-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .post-card:hover .post-image img {
+    transform: scale(1.08);
+  }
+
+  .post-category {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--purple-primary);
+    color: var(--white);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .post-content {
+    padding: 1.5rem;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--gray-500);
+    margin-bottom: 0.75rem;
+  }
+
+  .post-content h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .post-content p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .read-more {
+    color: var(--purple-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .view-all-wrapper {
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gray-800);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .view-all-btn:hover {
+    background: var(--purple-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.3);
+  }
+
+  /* Categories Section */
+  .categories-section {
+    padding: 6rem 2rem;
+    background: var(--gray-50);
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .category-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .category-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+  }
+
+  .category-card p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .category-arrow {
+    color: var(--purple-primary);
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover .category-arrow {
+    transform: translateX(5px);
+  }
+
+  /* Animations */
+  [data-animate="fade-up"] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  [data-animate="fade-up"].animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  [data-animate="card"] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+    transition-delay: var(--delay);
+  }
+
+  [data-animate="card"].animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 1024px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .categories-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .posts-grid, .categories-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    .section-header h2 {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<script>
+  setTimeout(() => {
+    document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('animate'));
+  }, 100);
+</script>

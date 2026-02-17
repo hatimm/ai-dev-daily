@@ -1,0 +1,348 @@
+---
+---
+
+<section class="newsletter-section" id="newsletter">
+  <div class="newsletter-container">
+    <div class="newsletter-glow glow-1"></div>
+    <div class="newsletter-glow glow-2"></div>
+    
+    <div class="newsletter-content">
+      <div class="newsletter-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      
+      <h3>Get AI News Delivered Daily</h3>
+      <p>Join 50,000+ developers staying ahead of the AI curve. No spam, just quality content.</p>
+      
+      <form class="newsletter-form" id="newsletterForm">
+        <div class="input-wrapper">
+          <div class="input-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <input type="email" placeholder="Enter your email address" required />
+          <div class="input-shine"></div>
+        </div>
+        <button type="submit">
+          <span>Subscribe Free</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </form>
+      
+      <div class="trust-badges">
+        <span class="badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          No spam
+        </span>
+        <span class="badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          Unsubscribe anytime
+        </span>
+        <span class="badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          50K+ subscribers
+        </span>
+      </div>
+    </div>
+    
+    <div class="newsletter-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter-section {
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-container {
+    max-width: 750px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, rgba(108, 43, 217, 0.06) 0%, rgba(139, 92, 246, 0.04) 100%);
+    border: 1px solid rgba(108, 43, 217, 0.15);
+    border-radius: 32px;
+    padding: 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .glow-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(108, 43, 217, 0.15);
+    top: -150px;
+    left: -100px;
+    animation: glowFloat 10s ease-in-out infinite;
+  }
+
+  .glow-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(139, 92, 246, 0.1);
+    bottom: -100px;
+    right: -50px;
+    animation: glowFloat 12s ease-in-out infinite reverse;
+  }
+
+  @keyframes glowFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, 20px); }
+  }
+
+  .newsletter-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .newsletter-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    animation: iconFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .newsletter h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--gray-800);
+    letter-spacing: -0.02em;
+  }
+
+  .newsletter-content > p {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .input-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    z-index: 1;
+  }
+
+  .newsletter-form input {
+    width: 100%;
+    padding: 1.1rem 1.5rem 1.1rem 3.25rem;
+    border-radius: 50px;
+    border: 2px solid var(--gray-200);
+    background: var(--white);
+    color: var(--gray-800);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .newsletter-form input::placeholder {
+    color: var(--gray-400);
+  }
+
+  .newsletter-form input:focus {
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 4px rgba(108, 43, 217, 0.1);
+  }
+
+  .input-shine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+  }
+
+  .newsletter-form input:focus + .input-shine {
+    transform: translateX(100%);
+    transition: transform 1s ease;
+  }
+
+  .newsletter-form button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.1rem 2rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-light) 100%);
+    color: var(--white);
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter-form button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .newsletter-form button:hover::before {
+    left: 100%;
+  }
+
+  .newsletter-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.35);
+  }
+
+  .newsletter-form button svg {
+    transition: transform 0.3s ease;
+  }
+
+  .newsletter-form button:hover svg {
+    transform: translateX(4px);
+  }
+
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-badges .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--gray-500);
+  }
+
+  .trust-badges .badge svg {
+    color: var(--purple-primary);
+  }
+
+  .newsletter-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .shape {
+    position: absolute;
+    border: 1px solid rgba(108, 43, 217, 0.2);
+    border-radius: 50%;
+    animation: shapeFloat 15s ease-in-out infinite;
+  }
+
+  .shape-1 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 5%;
+    animation-delay: -5s;
+  }
+
+  .shape-2 {
+    width: 60px;
+    height: 60px;
+    bottom: 30%;
+    right: 8%;
+    animation-delay: -10s;
+  }
+
+  @keyframes shapeFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(10px, -15px) rotate(120deg); }
+    66% { transform: translate(-15px, 10px) rotate(240deg); }
+  }
+
+  @media (max-width: 768px) {
+    .newsletter-container {
+      padding: 2.5rem 1.5rem;
+    }
+    .newsletter h3 { font-size: 1.75rem; }
+    .trust-badges { gap: 1rem; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-form button { width: 100%; justify-content: center; }
+  }
+</style>
+
+<script>
+  const newsletterForm = document.getElementById('newsletterForm');
+  newsletterForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = e.target.querySelector('input');
+    const email = input?.value;
+    alert(`Thanks for subscribing with ${email}!`);
+    (e.target as HTMLFormElement).reset();
+  });
+</script>

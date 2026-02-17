@@ -1,0 +1,479 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
+
+const stats = [
+  { number: "500+", label: "Articles", icon: "📰" },
+  { number: "50K+", label: "Monthly Readers", icon: "👥" },
+  { number: "5+", label: "Years Publishing", icon: "⭐" },
+  { number: "100+", label: "Contributors", icon: "✍️" }
+];
+
+const topics = [
+  {
+    icon: "🤖",
+    title: "AI Trends",
+    description: "Stay ahead with the latest breakthroughs, innovative research, and dynamic industry shifts that shape the promising future of AI globally."
+  },
+  {
+    icon: "💻",
+    title: "Dev Build",
+    description: "Discover clear, step-by-step guides, practical tutorials, and expert advice to empower your creative journey in modern web and app development."
+  },
+  {
+    icon: "🔧",
+    title: "Dev Tools",
+    description: "Explore honest reviews, insightful comparisons, and practical recommendations on the latest software and innovative hardware solutions."
+  },
+  {
+    icon: "📱",
+    title: "Tech Gear",
+    description: "Comprehensive reviews, hands-on guides, and the latest updates on innovative gadgets and essential hardware powering today's lifestyles."
+  }
+];
+---
+
+<Layout title="About - AI Dev Daily">
+  <Loader />
+  <Header />
+  <main>
+    <section class="about-hero">
+      <div class="hero-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="grid-pattern"></div>
+      </div>
+      <div class="hero-content">
+        <div class="badge" data-animate="fade-up">
+          <span class="badge-dot"></span>
+          About Us
+        </div>
+        <h1 data-animate="fade-up" data-delay="1">Your Daily Source for <span>AI News</span></h1>
+        <p data-animate="fade-up" data-delay="2">AI Dev Daily is your trusted destination for the latest in artificial intelligence news, tutorials, and insights. Built for developers, by developers.</p>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stats-container">
+        {stats.map((stat, index) => (
+          <div class="stat-card" data-animate="stat" style={`--delay: ${index * 0.1}s`}>
+            <div class="stat-icon">{stat.icon}</div>
+            <div class="stat-number">{stat.number}</div>
+            <div class="stat-label">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mission-section">
+      <div class="mission-container">
+        <div class="mission-content" data-animate="fade-up">
+          <div class="section-label">Our Mission</div>
+          <h2>Democratizing AI Knowledge</h2>
+          <p>At AI Dev Daily, we believe that understanding AI shouldn't be limited to researchers and big tech companies. Our mission is to make artificial intelligence accessible to everyone—from seasoned developers to curious beginners.</p>
+          <p>We curate the latest AI news, create in-depth tutorials, and provide practical guides that help you stay ahead in this rapidly evolving field.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="topics-section">
+      <div class="topics-header" data-animate="fade-up">
+        <div class="section-label">What We Cover</div>
+        <h2>Explore Our Topics</h2>
+      </div>
+      <div class="topics-grid">
+        {topics.map((topic, index) => (
+          <div class="topic-card" data-animate="topic" style={`--delay: ${index * 0.1}s`}>
+            <div class="topic-icon">{topic.icon}</div>
+            <h3>{topic.title}</h3>
+            <p>{topic.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-bg">
+        <div class="cta-orb orb-1"></div>
+        <div class="cta-orb orb-2"></div>
+      </div>
+      <div class="cta-content" data-animate="scale">
+        <h2>Stay Updated</h2>
+        <p>Get the latest AI news and tutorials delivered to your inbox.</p>
+        <a href="/blog" class="cta-btn">
+          Browse Articles
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .about-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    animation: orbFloat 15s infinite ease-in-out;
+  }
+
+  .orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(108, 43, 217, 0.15) 0%, transparent 70%);
+    top: -150px;
+    left: -100px;
+  }
+
+  .orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -7s;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -30px) scale(1.1); }
+  }
+
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(108, 43, 217, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108, 43, 217, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(108, 43, 217, 0.1);
+    border: 1px solid rgba(108, 43, 217, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--purple-primary);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--purple-primary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .about-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--gray-800);
+    line-height: 1.15;
+  }
+
+  .about-hero h1 span {
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .about-hero p {
+    font-size: 1.2rem;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* Stats */
+  .stats-section {
+    padding: 4rem 2rem;
+    background: var(--gray-800);
+  }
+
+  .stats-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .stat-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--purple-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: var(--gray-400);
+    font-size: 0.95rem;
+  }
+
+  /* Mission */
+  .mission-section {
+    padding: 7rem 2rem;
+    background: var(--white);
+  }
+
+  .mission-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-label {
+    display: inline-block;
+    background: rgba(108, 43, 217, 0.1);
+    border: 1px solid rgba(108, 43, 217, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--purple-primary);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .mission-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 1.5rem;
+  }
+
+  .mission-content p {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  /* Topics */
+  .topics-section {
+    padding: 7rem 2rem;
+    background: var(--gray-50);
+  }
+
+  .topics-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .topics-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gray-800);
+  }
+
+  .topics-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .topic-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .topic-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .topic-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--purple-primary);
+    box-shadow: 0 20px 40px rgba(108, 43, 217, 0.1);
+  }
+
+  .topic-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .topic-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.75rem;
+  }
+
+  .topic-card p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+  }
+
+  .cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .cta-orb.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(255,255,255,0.2);
+    top: -150px;
+    left: -100px;
+  }
+
+  .cta-orb.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.15);
+    bottom: -100px;
+    right: -50px;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s ease;
+  }
+
+  .cta-content.animate {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .cta-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .cta-content p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    color: var(--purple-primary);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 1024px) {
+    .stats-container { grid-template-columns: repeat(2, 1fr); }
+    .topics-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .stats-container { grid-template-columns: 1fr; }
+    .topics-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  setTimeout(() => {
+    document.querySelectorAll('[data-animate]').forEach(el => el.classList.add('animate'));
+  }, 100);
+</script>

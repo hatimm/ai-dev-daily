@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
+---
+
+<Layout title="Terms & Conditions - AI Dev Daily">
+  <Loader />
+  <Header />
+  <main>
+    <section class="legal-hero">
+      <h1>Terms & Conditions</h1>
+      <p>Last updated: February 2026</p>
+    </section>
+
+    <section class="legal-content">
+      <div class="container">
+        <h2>Introduction</h2>
+        <p>By accessing and using AI Dev Daily, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+        <h2>Content Ownership</h2>
+        <p>All content on this website, including articles, images, and graphics, is the property of AI Dev Daily and is protected by copyright laws. You may not reproduce, distribute, or modify any content without our written permission.</p>
+
+        <h2>User Conduct</h2>
+        <p>When using our website, you agree to:</p>
+        <ul>
+          <li>Not use the website for any unlawful purpose</li>
+          <li>Not attempt to gain unauthorized access to any part of the website</li>
+          <li>Not transmit any viruses or other harmful code</li>
+        </ul>
+
+        <h2>Newsletter & Subscriptions</h2>
+        <p>By subscribing to our newsletter, you agree to receive periodic emails from AI Dev Daily. You can unsubscribe at any time by clicking the unsubscribe link in any email.</p>
+
+        <h2>Disclaimer</h2>
+        <p>The information provided on this website is for general informational purposes only. We make no representations or warranties of any kind, express or implied, about the completeness, accuracy, or reliability of the information.</p>
+
+        <h2>Limitation of Liability</h2>
+        <p>AI Dev Daily shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in any way connected with your use of this website.</p>
+
+        <h2>Contact Information</h2>
+        <p>If you have any questions about these Terms & Conditions, please contact us at hello@aidevdaily.com</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-hero {
+    padding: 8rem 2rem 4rem;
+    background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    text-align: center;
+  }
+
+  .legal-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-hero p {
+    color: var(--gray-600);
+  }
+
+  .legal-content {
+    padding: 4rem 2rem;
+    background: var(--white);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .legal-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 2rem 0 1rem;
+  }
+
+  .legal-content h2:first-child {
+    margin-top: 0;
+  }
+
+  .legal-content p {
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content ul {
+    color: var(--gray-600);
+    line-height: 1.8;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content li {
+    margin-bottom: 0.5rem;
+  }
+</style>

@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Loader from '../components/Loader.astro';
+---
+
+<Layout title="Privacy Policy - AI Dev Daily">
+  <Loader />
+  <Header />
+  <main>
+    <section class="legal-hero">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: February 2026</p>
+    </section>
+
+    <section class="legal-content">
+      <div class="container">
+        <h2>Introduction</h2>
+        <p>At AI Dev Daily, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
+
+        <h2>Information We Collect</h2>
+        <p>We may collect personal information that you voluntarily provide to us when you:</p>
+        <ul>
+          <li>Sign up for our newsletter</li>
+          <li>Contact us through our contact form</li>
+          <li>Comment on our blog posts</li>
+        </ul>
+
+        <h2>How We Use Your Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Send you periodic newsletters and updates</li>
+          <li>Respond to your questions and concerns</li>
+          <li>Improve our website and services</li>
+          <li>Send you promotional materials (if you opt-in)</li>
+        </ul>
+
+        <h2>Cookies</h2>
+        <p>We use cookies to enhance your experience. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+
+        <h2>Third-Party Disclosure</h2>
+        <p>We do not sell, trade, or otherwise transfer your Personally Identifiable Information to outside parties unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us at hello@aidevdaily.com</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal-hero {
+    padding: 8rem 2rem 4rem;
+    background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+    text-align: center;
+  }
+
+  .legal-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 0.5rem;
+  }
+
+  .legal-hero p {
+    color: var(--gray-600);
+  }
+
+  .legal-content {
+    padding: 4rem 2rem;
+    background: var(--white);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .legal-content h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 2rem 0 1rem;
+  }
+
+  .legal-content h2:first-child {
+    margin-top: 0;
+  }
+
+  .legal-content p {
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content ul {
+    color: var(--gray-600);
+    line-height: 1.8;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .legal-content li {
+    margin-bottom: 0.5rem;
+  }
+</style>

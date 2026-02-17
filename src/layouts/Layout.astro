@@ -1,0 +1,81 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-192x192.png" />
+    <link rel="apple-touch-icon" href="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-180x180.png" />
+    <meta name="msapplication-TileImage" content="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-270x270.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --purple-primary: #6c2bd9;
+    --purple-light: #8b5cf6;
+    --purple-glow: #a78bfa;
+    --purple-dark: #4c1d95;
+    --white: #ffffff;
+    --white-cream: #fafafa;
+    --gray-50: #f8f9fa;
+    --gray-100: #f1f3f5;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --black: #000000;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--white);
+    color: var(--gray-800);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--gray-100);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--purple-light);
+    border-radius: 4px;
+  }
+</style>

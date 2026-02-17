@@ -1,0 +1,92 @@
+---
+---
+<div class="loader" id="loader">
+  <div class="loader-content">
+    <div class="loader-logo">
+      <img 
+        src="https://aidevdaily.com/wp-content/uploads/2025/02/e49aaf2e-a5be-4656-a154-8c7ad3090d3b-1024x242.png" 
+        alt="AI Dev Daily"
+      />
+    </div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+    <div class="loader-text">Loading amazing content...</div>
+  </div>
+</div>
+
+<style>
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+
+  .loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loader-content {
+    text-align: center;
+  }
+
+  .loader-logo {
+    margin-bottom: 2rem;
+  }
+
+  .loader-logo img {
+    height: 45px;
+    animation: logoPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes logoPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.98); }
+  }
+
+  .loader-bar {
+    width: 200px;
+    height: 4px;
+    background: var(--gray-200);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+  }
+
+  .loader-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--purple-primary), var(--purple-light));
+    border-radius: 2px;
+    animation: loading 2s ease-in-out forwards;
+  }
+
+  @keyframes loading {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+  }
+
+  .loader-text {
+    font-size: 0.85rem;
+    color: var(--gray-500);
+    letter-spacing: 0.5px;
+  }
+</style>
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader')?.classList.add('hidden');
+    }, 2200);
+  });
+</script>
