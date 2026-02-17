@@ -198,7 +198,7 @@ const allTags = ['AI', 'Development', 'Machine Learning', 'Tutorial', 'Tools', '
     </section>
   </main>
   <Footer />
-</ Layout>
+</Layout>
 
 <style>
   /* Hero */
@@ -854,85 +854,6 @@ const allTags = ['AI', 'Development', 'Machine Learning', 'Tutorial', 'Tools', '
     }
   }
 
-  /* Pagination */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 3rem;
-    padding: 1.5rem 0;
-    background: var(--gray-50);
-    border-radius: 16px;
-    flex-wrap: wrap;
-  }
-
-  .page-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    background: var(--white);
-    border: 2px solid var(--gray-200);
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--gray-700);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .page-btn:hover:not(:disabled) {
-    border-color: var(--purple-primary);
-    color: var(--purple-primary);
-    background: rgba(108, 43, 217, 0.05);
-  }
-
-  .page-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    background: var(--gray-100);
-  }
-
-  .page-numbers {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-
-  .page-number {
-    min-width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--white);
-    border: 2px solid var(--gray-200);
-    border-radius: 12px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--gray-700);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .page-number:hover {
-    border-color: var(--purple-primary);
-    color: var(--purple-primary);
-  }
-
-  .page-number.active {
-    background: var(--purple-primary);
-    border-color: var(--purple-primary);
-    color: var(--white);
-  }
-
-  .page-dots {
-    padding: 0 0.5rem;
-    color: var(--gray-400);
-    font-size: 0.9rem;
-  }
-
   /* Search Highlight */
   .post-card mark {
     background: rgba(108, 43, 217, 0.2);
@@ -947,6 +868,98 @@ const allTags = ['AI', 'Development', 'Machine Learning', 'Tutorial', 'Tools', '
     color: var(--purple-primary);
     padding: 0 3px;
     border-radius: 3px;
+  }
+</style>
+
+<style is:global>
+  /* Pagination (Global for JS-generated elements) */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 5rem;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+  }
+
+  .page-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .page-btn:hover:not(:disabled) {
+    border-color: var(--purple-primary);
+    color: var(--purple-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 43, 217, 0.1);
+  }
+
+  .page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: var(--gray-50);
+    border-color: var(--gray-200);
+    box-shadow: none;
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .page-number {
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .page-number:hover {
+    border-color: var(--gray-200);
+    background: var(--gray-50);
+    color: var(--purple-primary);
+    transform: translateY(-2px);
+  }
+
+  .page-number.active {
+    background: var(--purple-primary);
+    border-color: var(--purple-primary);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(108, 43, 217, 0.3);
+  }
+
+  .page-dots {
+    padding: 0 0.5rem;
+    color: var(--gray-400);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    align-self: flex-end;
+    padding-bottom: 0.5rem;
   }
 </style>
 
@@ -1023,7 +1036,7 @@ const allTags = ['AI', 'Development', 'Machine Learning', 'Tutorial', 'Tools', '
         pageNumbers.appendChild(dots);
       }
     } else {
-      for (let i = 2; i <= totalPages; i++) {
+      for (let i = 2; i < totalPages; i++) {
         addPageNumber(i);
       }
     }
