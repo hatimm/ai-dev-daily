@@ -2,7 +2,7 @@
 title: "Best AI tools in 2026"
 excerpt: "Explore the cutting-edge AI tools developers are leveraging in 2026. From advanced code generation to hyper-personalized user experiences, discover the must-have technologies shaping the future of AI development."
 date: "2026-02-18"
-image: "./images/ai-tools-2026.jpg"
+image: "/images/ai-tools-2026.jpg"
 imageAlt: "Hero image for the article: Best AI tools in 2026"
 category: "AI News"
 author: ""

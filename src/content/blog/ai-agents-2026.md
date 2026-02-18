@@ -2,7 +2,7 @@
 title: "The Future of AI Agents in 2026"
 excerpt: "Explore the cutting-edge world of AI agents: their evolution, practical applications, and the challenges they present. Get ready for 2026 and beyond!"
 date: "2026-02-18"
-image: "./images/ai-agents-2026.jpg"
+image: "/images/ai-agents-2026.jpg"
 imageAlt: "Hero image for the article: The Future of AI Agents in 2026"
 category: "AI News"
 author: ""
