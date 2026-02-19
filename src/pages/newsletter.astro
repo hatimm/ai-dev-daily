@@ -1,0 +1,274 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Newsletter - AI Dev Daily">
+  <Header />
+  <main>
+    <section class="newsletter-hero">
+      <div class="container">
+        <div class="header-badge">Subscribe</div>
+        <h1>The Daily <span class="gradient-text">Pulse</span></h1>
+        <p>Join 50,000+ developers, researchers, and AI enthusiasts getting the latest news, tool reviews, and deep dives delivered straight to their inbox.</p>
+        
+        <div class="newsletter-card">
+          <div class="card-content">
+            <h3>Newsletter Exclusive Benefits</h3>
+            <ul class="benefit-list">
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Daily AI news summaries (No bloat)</span>
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Full access to the AI Tools Directory list</span>
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Deep dive research papers simplified</span>
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>Early access to new AI agent experiments</span>
+              </li>
+            </ul>
+
+            <form class="newsletter-form" id="mainNewsletterForm">
+              <div class="input-group">
+                <input type="email" placeholder="Enter your best email..." required />
+                <button type="submit">Join the Pulse</button>
+              </div>
+              <p class="privacy-note">We respect your inbox. Unsubscribe at any time.</p>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="trust-indicators">
+              <span>Trusted by teams at:</span>
+              <div class="teams">
+                <span class="team">OpenAI</span>
+                <span class="team">Mistral</span>
+                <span class="team">Anthropic</span>
+                <span class="team">Perplexity</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    padding-top: 96px;
+    background: var(--bg-main);
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .newsletter-hero {
+    padding: 6rem 0 8rem;
+    text-align: center;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-light);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .newsletter-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .newsletter-hero p {
+    color: var(--gray-500);
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    line-height: 1.6;
+  }
+
+  .newsletter-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .card-content {
+    padding: 3rem;
+  }
+
+  .card-content h3 {
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .benefit-list li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    color: var(--gray-500);
+    font-size: 1rem;
+  }
+
+  .benefit-list li svg {
+    color: var(--purple-primary);
+    flex-shrink: 0;
+  }
+
+  .newsletter-form {
+    margin-top: 2rem;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .input-group input {
+    flex: 1;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    color: var(--white);
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .input-group input:focus {
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+  }
+
+  .input-group button {
+    background: var(--purple-primary);
+    color: var(--white);
+    border: none;
+    padding: 0 2rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .input-group button:hover {
+    background: var(--purple-dark);
+    transform: translateY(-2px);
+  }
+
+  .privacy-note {
+    margin-top: 1rem !important;
+    font-size: 0.85rem !important;
+    color: var(--gray-600) !important;
+    text-align: center;
+  }
+
+  .card-footer {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem 3rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .trust-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-indicators span {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .teams {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .team {
+    color: var(--gray-500) !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .card-content { padding: 2rem; }
+    .benefit-list { grid-template-columns: 1fr; }
+    .input-group { flex-direction: column; }
+    .input-group button { padding: 1rem; }
+    .trust-indicators { flex-direction: column; gap: 1rem; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('mainNewsletterForm');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Welcome to the Pulse! Check your inbox for confirmation.');
+    (e.target as HTMLFormElement).reset();
+  });
+</script>

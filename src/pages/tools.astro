@@ -1,0 +1,500 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getToolsFromSheet } from '../lib/sheets';
+
+const allTools = await getToolsFromSheet();
+const categories = [...new Set(allTools.map(tool => tool.category))];
+
+// Fisher-Yates Shuffle for "unorganized" initial view
+function shuffle(array: any[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+const tools = shuffle([...allTools]);
+---
+
+<Layout title="AI Tools Directory - Best AI Tools for Developers">
+  <Header />
+  <main>
+    <section class="tools-hero">
+      <div class="container">
+        <div class="header-badge">Collection</div>
+        <h1>AI Tools <span class="gradient-text">Directory</span></h1>
+        <p>A curated list of the most powerful AI tools for developers, designers, and researchers.</p>
+        
+        <div class="tools-filter-bar">
+          <div class="search-input-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="M21 21l-4.35-4.35"></path>
+            </svg>
+            <input type="text" id="toolSearch" placeholder="Search tools by name, tag, or category..." />
+          </div>
+          <div class="filter-pills">
+            <button class="filter-pill active" data-category="all">All Tools</button>
+            {categories.map(cat => (
+              <button class="filter-pill" data-category={cat}>{cat}</button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools-grid-section">
+      <div class="container">
+        <div class="tools-grid" id="toolsGrid">
+          {tools.map((tool, index) => (
+            <div class="tool-card" data-category={tool.category} data-tags={tool.tags?.join(',')} style={index >= 12 ? 'display: none;' : ''}>
+              <div class="tool-header">
+                <div class="tool-icon">
+                  {tool.category.charAt(0)}
+                </div>
+                <div class="tool-info">
+                  <h3>{tool.name}</h3>
+                  <span class="tool-category">{tool.category}</span>
+                </div>
+              </div>
+              <p>{tool.description}</p>
+              <div class="tool-tags">
+                {tool.tags?.map(tag => (
+                  <span class="tag">#{tag}</span>
+                ))}
+              </div>
+              <a href={tool.link} target="_blank" rel="noopener noreferrer" class="tool-link">
+                Visit Tool
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+          ))}
+        </div>
+
+        <div class="load-more-container" id="loadMoreContainer">
+          <button id="showLessBtn" class="show-less-btn hidden">
+            Show Less
+          </button>
+          <button id="loadMoreBtn" class="load-more-btn">
+            Load More Tools
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    padding-top: 96px; /* 32px ticker + 64px header */
+    background: var(--bg-main);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .tools-hero {
+    padding: 6rem 0 3rem;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-light);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .tools-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 1rem;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tools-hero p {
+    color: var(--gray-500);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    margin-bottom: 3rem;
+  }
+
+  .submit-tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f1f5f9;
+    color: var(--gray-800);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .submit-tool-btn:hover {
+    border-color: var(--purple-primary);
+    background: rgba(139, 92, 246, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .tools-filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .search-input-wrapper svg {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-500);
+  }
+
+  .search-input-wrapper input {
+    width: 100%;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1rem 1rem 3.5rem;
+    color: var(--gray-800);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+
+  .search-input-wrapper input:focus {
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  }
+
+  .filter-pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-pill {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--gray-500);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-pill:hover, .filter-pill.active {
+    background: var(--purple-primary);
+    color: var(--white);
+    border-color: var(--purple-primary);
+  }
+
+  .tools-grid-section {
+    padding-bottom: 8rem;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .tool-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tool-card:hover {
+    border-color: var(--purple-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  .tool-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: center;
+  }
+
+  .tool-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--purple-dark);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .tool-info h3 {
+    font-size: 1.15rem;
+    color: var(--gray-800);
+    margin-bottom: 0.25rem;
+  }
+
+  .tool-category {
+    font-size: 0.75rem;
+    color: var(--purple-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tool-card p {
+    color: var(--gray-500);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+
+  .tool-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: var(--gray-600);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .tool-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-700);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .tool-link:hover {
+    color: var(--purple-light);
+  }
+
+  @media (max-width: 1024px) {
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .tools-grid { grid-template-columns: 1fr; }
+    .tools-hero h1 { font-size: 2.5rem; }
+  }
+
+  /* Load More Button Styles */
+  .load-more-container {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .load-more-btn, .show-less-btn {
+    appearance: none;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #1a1a1a;
+    padding: 1rem 2.5rem;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  }
+
+  .show-less-btn {
+    background: transparent;
+    color: var(--gray-500);
+    border-color: transparent;
+    box-shadow: none;
+    padding: 1rem 1.5rem;
+  }
+
+  .load-more-btn:hover {
+    border-color: #8b5cf6;
+    color: #8b5cf6;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(139, 92, 246, 0.1);
+  }
+
+  .show-less-btn:hover {
+    color: #ef4444; /* Alert color for "Less" */
+    transform: translateY(-2px);
+  }
+
+  .load-more-btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .load-more-btn:hover svg {
+    transform: translateY(3px);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script>
+  const toolSearch = document.getElementById('toolSearch');
+  const filterPills = document.querySelectorAll('.filter-pill');
+  const toolCards = document.querySelectorAll('.tool-card');
+  const loadMoreContainer = document.getElementById('loadMoreContainer');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  const showLessBtn = document.getElementById('showLessBtn');
+  
+  const ITEMS_PER_BATCH = 12;
+  let visibleCount = ITEMS_PER_BATCH;
+
+  const getVisibleCards = () => {
+    const searchTerm = (toolSearch as HTMLInputElement).value.toLowerCase();
+    const activeCategory = document.querySelector('.filter-pill.active')?.getAttribute('data-category');
+
+    return Array.from(toolCards).filter(card => {
+      const name = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+      const desc = card.querySelector('p')?.textContent?.toLowerCase() || '';
+      const tags = card.getAttribute('data-tags')?.toLowerCase() || '';
+      const category = card.getAttribute('data-category');
+
+      const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm) || tags.includes(searchTerm);
+      const matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+      return matchesSearch && matchesCategory;
+    });
+  };
+
+  const updateView = (shouldScroll = false) => {
+    const filteredCards = getVisibleCards();
+    const totalFiltered = filteredCards.length;
+    
+    // Hide all first
+    toolCards.forEach(card => (card as HTMLElement).style.display = 'none');
+
+    // Show only the current batch of filtered items
+    filteredCards.slice(0, visibleCount).forEach(card => {
+      (card as HTMLElement).style.display = 'flex';
+    });
+
+    // Handle "Load More" button visibility
+    if (visibleCount >= totalFiltered) {
+      loadMoreBtn?.classList.add('hidden');
+    } else {
+      loadMoreBtn?.classList.remove('hidden');
+    }
+
+    // Handle "Show Less" button visibility
+    if (visibleCount > ITEMS_PER_BATCH) {
+      showLessBtn?.classList.remove('hidden');
+    } else {
+      showLessBtn?.classList.add('hidden');
+    }
+
+    // Smooth scroll to top of grid on filter change if requested
+    if (shouldScroll) {
+      const gridSection = document.querySelector('.tools-grid-section');
+      if (gridSection) {
+        window.scrollTo({
+          top: (gridSection as HTMLElement).offsetTop - 100,
+          behavior: 'smooth'
+        });
+      }
+    }
+  };
+
+  loadMoreBtn?.addEventListener('click', () => {
+    visibleCount += ITEMS_PER_BATCH;
+    updateView(false);
+  });
+
+  showLessBtn?.addEventListener('click', () => {
+    if (visibleCount > ITEMS_PER_BATCH) {
+      visibleCount -= ITEMS_PER_BATCH;
+      updateView(true); // Scroll back up to the new "bottom"
+    }
+  });
+
+  toolSearch?.addEventListener('input', () => {
+    visibleCount = ITEMS_PER_BATCH;
+    updateView(false);
+  });
+
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      visibleCount = ITEMS_PER_BATCH;
+      updateView(true);
+    });
+  });
+
+  // Initial render
+  updateView(false);
+</script>

@@ -7,7 +7,13 @@ category: "AI Tools"
 date: "2026-02-18"
 readTime: "6"
 featured: true
-author: "Hatim"
+author: "Hatim Meftahi"
+authorRole: "AI Strategy Consultant"
+authorBio: "Hatim is a developer and AI strategist focusing on autonomous agents and developer productivity."
+tldr:
+  - "Cursor is the first AI-native code editor that actually feels like a pair programmer."
+  - "The 'Composer' feature allows for multi-file edits and complex bug fixes."
+  - "2025 will see AI editors transition from suggestion tools to full task executors."
 ---
 
 # Top AI Coding Tools in 2025: Boost Your Developer Productivity

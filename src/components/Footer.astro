@@ -75,59 +75,69 @@ const legal = [
 
 <style>
   footer {
-    background: var(--gray-800);
-    color: var(--gray-300);
-    padding: 4rem 2rem 2rem;
+    background: var(--bg-main);
+    color: var(--gray-500);
+    padding: 6rem 2rem 3rem;
+    border-top: 1px solid var(--border-color);
   }
 
   .footer-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem;
+    gap: 4rem;
   }
 
   .footer-brand p {
-    color: var(--gray-400);
-    margin: 1rem 0;
+    color: var(--gray-500);
+    margin: 1.5rem 0;
     font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 320px;
   }
 
   .footer-logo {
-    height: 35px;
+    height: 32px;
     margin-bottom: 1rem;
-    filter: brightness(0) invert(1);
+    /* Removed filter: brightness(0) invert(1) for light theme */
   }
 
   .footer-social {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .footer-social a {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: var(--gray-500);
     text-decoration: none;
     transition: all 0.3s ease;
+    font-size: 1.1rem;
   }
 
   .footer-social a:hover {
     background: var(--purple-primary);
-    transform: translateY(-3px);
+    color: var(--white);
+    border-color: var(--purple-primary);
+    transform: translateY(-2px);
   }
 
   .footer-links h4 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-bottom: 1.5rem;
-    color: var(--white);
+    color: var(--gray-800);
   }
 
   .footer-links ul {
@@ -139,31 +149,32 @@ const legal = [
   }
 
   .footer-links a {
-    color: var(--gray-400);
+    color: var(--gray-500);
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .footer-links a:hover {
-    color: var(--purple-light);
+    color: var(--purple-primary);
+    padding-left: 0.25rem;
   }
 
   .footer-bottom {
-    max-width: 1200px;
-    margin: 3rem auto 0;
+    max-width: 1400px;
+    margin: 4rem auto 0;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .footer-bottom p {
-    color: var(--gray-500);
-    font-size: 0.9rem;
+    color: var(--gray-600);
+    font-size: 0.85rem;
   }
 
   @media (max-width: 1024px) {

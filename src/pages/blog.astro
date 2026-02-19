@@ -8,7 +8,7 @@ import { getCollection } from 'astro:content';
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const categories = ['All', 'AI Trends', 'Dev Build', 'Dev Tools', 'Tech Gear'];
+const categories = ['All', 'AI Trends', 'Research', 'Policy', 'Dev Build', 'Dev Tools', 'Tech Gear'];
 const allTags = ['AI', 'Development', 'Machine Learning', 'Tutorial', 'Tools', 'Google', 'OpenAI', 'ChatGPT', 'Automation'];
 ---
 
@@ -989,6 +989,19 @@ const allTags = ['AI', 'Development', 'Machine Learning', 'Tutorial', 'Tools', '
 
   function getVisiblePosts() {
     return Array.from(postCards).filter(card => !card.classList.contains('hidden'));
+  }
+
+  // Handle category from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryParam = urlParams.get('category');
+  if (categoryParam) {
+    const cleanCategory = categoryParam.charAt(0).toUpperCase() + categoryParam.slice(1);
+    const targetBtn = Array.from(categoryBtns).find(btn => (btn as HTMLElement).dataset.category === cleanCategory);
+    if (targetBtn) {
+      categoryBtns.forEach(b => b.classList.remove('active'));
+      targetBtn.classList.add('active');
+      activeCategory = (targetBtn as HTMLElement).dataset.category;
+    }
   }
 
   function updatePagination() {

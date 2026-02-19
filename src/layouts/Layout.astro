@@ -25,28 +25,59 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar"></div>
     <slot />
+
+    <style>
+      #progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: var(--purple-primary);
+        z-index: 2001;
+        transition: width 0.1s ease;
+      }
+    </style>
+
+    <script>
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressBar = document.getElementById('progress-bar');
+        if (progressBar) {
+          progressBar.style.width = scrolled + '%';
+        }
+      });
+    </script>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --purple-primary: #6c2bd9;
-    --purple-light: #8b5cf6;
-    --purple-glow: #a78bfa;
-    --purple-dark: #4c1d95;
+    --purple-primary: #8b5cf6;
+    --purple-light: #a78bfa;
+    --purple-glow: rgba(139, 92, 246, 0.15);
+    --purple-dark: #6d28d9;
     --white: #ffffff;
     --white-cream: #fafafa;
-    --gray-50: #f8f9fa;
-    --gray-100: #f1f3f5;
-    --gray-200: #e9ecef;
-    --gray-300: #dee2e6;
-    --gray-400: #ced4da;
-    --gray-500: #adb5bd;
-    --gray-600: #6c757d;
-    --gray-700: #495057;
-    --gray-800: #343a40;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-300: #d4d4d4;
+    --gray-400: #a3a3a3;
+    --gray-500: #737373;
+    --gray-600: #404040;
+    --gray-700: #262626;
+    --gray-800: #171717;
     --black: #000000;
+    --accent: #8b5cf6;
+    --bg-main: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #e5e5e5;
   }
 
   * {
@@ -57,11 +88,12 @@ const { title } = Astro.props;
 
   html {
     scroll-behavior: smooth;
+    background-color: var(--bg-main);
   }
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--white);
+    background-color: var(--bg-main);
     color: var(--gray-800);
     line-height: 1.6;
     overflow-x: hidden;

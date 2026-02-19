@@ -9,6 +9,7 @@ const otherPosts = sortedPosts.filter(post => post.slug !== featuredPost.slug).s
 const articles = [
   {
     featured: true,
+    slug: featuredPost?.slug || 'article',
     image: featuredPost?.data.image || '/blog/images/placeholder.jpg',
     category: featuredPost?.data.category || 'Featured',
     date: featuredPost?.data.date || '2026-02-16',
@@ -18,6 +19,7 @@ const articles = [
   },
   ...otherPosts.map(post => ({
     featured: false,
+    slug: post.slug,
     image: post.data.image,
     category: post.data.category,
     date: post.data.date,
@@ -44,7 +46,7 @@ const articles = [
         data-animate="card"
         style={`--delay: ${index * 0.1}s`}
       >
-        <a href={`/blog/${featuredPost?.slug || 'article'}`} class="card-link">
+        <a href={`/blog/${article.slug}`} class="card-link">
           <div class="card-image-wrapper">
             <img src={article.image} alt={article.title} class="card-image" loading="lazy" />
             <span class="card-category">{article.category}</span>
@@ -100,8 +102,8 @@ const articles = [
 
 <style>
   .featured-section {
-    padding: 7rem 2rem;
-    background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+    padding: 6rem 2rem;
+    background: var(--bg-main);
     position: relative;
     overflow: hidden;
   }
@@ -113,55 +115,43 @@ const articles = [
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(108, 43, 217, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, var(--purple-primary), transparent);
+    opacity: 0.2;
   }
 
   .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   .header-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(108, 43, 217, 0.08);
-    border: 1px solid rgba(108, 43, 217, 0.15);
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
     padding: 0.4rem 1rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    color: var(--purple-primary);
-    font-weight: 500;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--purple-light);
+    font-weight: 600;
     margin-bottom: 1rem;
-  }
-
-  .header-badge .badge-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--purple-primary);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .section-header h2 {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 1rem;
     color: var(--gray-800);
+    margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
   }
 
   .section-header p {
-    color: var(--gray-600);
-    font-size: 1.15rem;
-    max-width: 550px;
-    margin: 0 auto;
+    color: var(--gray-500);
+    font-size: 1.1rem;
+    max-width: 600px;
   }
 
   .featured-grid {
@@ -169,19 +159,19 @@ const articles = [
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-auto-rows: minmax(200px, auto);
+    gap: 1.5rem;
   }
 
   .featured-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
 
   .featured-card.animate {
@@ -190,9 +180,8 @@ const articles = [
   }
 
   .featured-card:hover {
-    transform: translateY(-12px);
-    border-color: rgba(108, 43, 217, 0.3);
-    box-shadow: 0 25px 60px rgba(108, 43, 217, 0.15);
+    border-color: var(--purple-primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   }
 
   .featured-card.featured {
@@ -203,23 +192,13 @@ const articles = [
   .card-link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  .card-shine {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .featured-card:hover .card-shine {
-    opacity: 1;
+  .featured-card.featured .card-link {
+    flex-direction: column;
   }
 
   .card-image-wrapper {
@@ -229,99 +208,56 @@ const articles = [
 
   .card-image {
     width: 100%;
-    height: 220px;
+    height: 180px;
     object-fit: cover;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.6s ease;
   }
 
   .featured-card.featured .card-image {
-    height: 320px;
+    height: 380px;
   }
 
   .featured-card:hover .card-image {
-    transform: scale(1.08);
-  }
-
-  .card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(108, 43, 217, 0.8) 0%, transparent 60%);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 2rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .featured-card:hover .card-overlay {
-    opacity: 1;
-  }
-
-  .read-more {
-    color: var(--white);
-    font-weight: 600;
-    padding: 0.6rem 1.2rem;
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
-  }
-
-  .featured-card:hover .read-more {
-    transform: translateY(0);
+    transform: scale(1.05);
   }
 
   .card-category {
     position: absolute;
     top: 1rem;
     left: 1rem;
-    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+    background: var(--purple-primary);
     color: var(--white);
-    padding: 0.35rem 0.9rem;
-    border-radius: 50px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
     z-index: 2;
   }
 
   .card-content {
-    padding: 1.5rem;
-    position: relative;
-    z-index: 1;
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .card-meta {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-bottom: 0.75rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--gray-500);
-  }
-
-  .card-meta span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .card-meta svg {
-    opacity: 0.7;
   }
 
   .card-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-    line-height: 1.35;
+    line-height: 1.3;
     color: var(--gray-800);
     transition: color 0.3s ease;
   }
@@ -331,70 +267,58 @@ const articles = [
   }
 
   .featured-card.featured .card-title {
-    font-size: 1.9rem;
+    font-size: 2rem;
   }
 
   .card-excerpt {
-    color: var(--gray-600);
+    color: var(--gray-500);
     font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .card-footer {
-    margin-top: 1rem;
+    margin-top: auto;
     padding-top: 1rem;
-    border-top: 1px solid var(--gray-100);
+    border-top: 1px solid var(--border-color);
   }
 
   .card-read-time {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--purple-primary);
-    font-size: 0.9rem;
+    color: var(--purple-light);
+    font-size: 0.85rem;
     font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .card-read-time svg {
-    transition: transform 0.3s ease;
-  }
-
-  .featured-card:hover .card-read-time svg {
-    transform: translateX(4px);
   }
 
   .view-all-wrapper {
-    text-align: center;
-    margin-top: 4rem;
+    margin-top: 3rem;
   }
 
   .view-all-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--gray-800);
-    color: var(--white);
-    padding: 1rem 2rem;
-    border-radius: 50px;
+    background: #f1f5f9;
+    color: var(--gray-800);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
   }
 
   .view-all-btn:hover {
     background: var(--purple-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.3);
-  }
-
-  .view-all-btn svg {
-    transition: transform 0.3s ease;
-  }
-
-  .view-all-btn:hover svg {
-    transform: translateX(4px);
+    color: var(--white);
+    transform: translateY(-2px);
   }
 
   @media (max-width: 1024px) {
@@ -412,8 +336,12 @@ const articles = [
     .featured-grid {
       grid-template-columns: 1fr;
     }
-    .featured-card.featured { grid-column: span 1; }
-    .featured-card.featured .card-image { height: 220px; }
+    .featured-card.featured {
+      grid-column: span 1;
+    }
+    .featured-card.featured .card-image {
+      height: 220px;
+    }
     .section-header h2 { font-size: 2rem; }
   }
 </style>

@@ -25,48 +25,15 @@ const latestPosts = sortedPosts.slice(0, 6);
   <Loader />
   <Header />
   <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-bg">
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="grid-pattern"></div>
-        <div class="floating-shapes">
-          <div class="shape shape-1"></div>
-          <div class="shape shape-2"></div>
-        </div>
-      </div>
-      <div class="hero-content">
-        <div class="badge" data-animate="fade-up">
-          <span class="badge-dot"></span>
-          Fresh AI Insights Daily
-        </div>
-        <h1 data-animate="fade-up" data-delay="1">
-          Stay Ahead of the <span class="gradient-text">AI Revolution</span>
-        </h1>
-        <p data-animate="fade-up" data-delay="2">
-          Your daily source for cutting-edge artificial intelligence news, tutorials, and insights. Built for developers, by developers.
-        </p>
-        <div class="hero-buttons" data-animate="fade-up" data-delay="3">
-          <a href="#latest" class="btn-primary">
-            <span>Latest Articles</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="#categories" class="btn-secondary">
-            <span>Browse Topics</span>
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- Featured Editorial Grid (Hero) -->
+    <FeaturedArticles />
 
     <!-- Latest Articles -->
     <section class="latest-section" id="latest">
       <div class="container">
         <div class="section-header">
-          <h2>Latest Articles</h2>
-          <p>Stay updated with the newest AI news and tutorials</p>
+          <h2>Latest News</h2>
+          <p>Chronological updates from the AI frontlines</p>
         </div>
         <div class="posts-grid">
           {latestPosts.map((post, index) => (
@@ -84,7 +51,6 @@ const latestPosts = sortedPosts.slice(0, 6);
                   </div>
                   <h3>{post.data.title}</h3>
                   <p>{post.data.excerpt}</p>
-                  <span class="read-more">Read more →</span>
                 </div>
               </a>
             </article>
@@ -92,7 +58,7 @@ const latestPosts = sortedPosts.slice(0, 6);
         </div>
         <div class="view-all-wrapper">
           <a href="/blog" class="view-all-btn">
-            View All Articles
+            View All News
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -105,8 +71,9 @@ const latestPosts = sortedPosts.slice(0, 6);
     <section class="categories-section" id="categories">
       <div class="container">
         <div class="section-header">
+          <div class="header-badge">Taxonomy</div>
           <h2>Explore Topics</h2>
-          <p>Find articles by category</p>
+          <p>Filtered research and news by category</p>
         </div>
         <div class="categories-grid">
           {categories.map((cat, index) => (
@@ -127,9 +94,6 @@ const latestPosts = sortedPosts.slice(0, 6);
     <!-- Newsletter -->
     <Newsletter />
 
-    <!-- Featured Articles -->
-    <FeaturedArticles />
-
     <Footer />
   </main>
 </Layout>
@@ -137,240 +101,54 @@ const latestPosts = sortedPosts.slice(0, 6);
 <style>
   main {
     min-height: 100vh;
+    padding-top: 96px; /* 32px ticker + 64px header */
+    background: var(--bg-main);
   }
 
   .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  /* Hero */
-  .hero {
-    position: relative;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 2rem 4rem;
-    overflow: hidden;
-    background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    animation: orbFloat 15s infinite ease-in-out;
-  }
-
-  .orb-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(108, 43, 217, 0.15) 0%, transparent 70%);
-    top: -150px;
-    left: -100px;
-  }
-
-  .orb-2 {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
-    bottom: -100px;
-    right: -100px;
-    animation-delay: -7s;
-  }
-
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(30px, -30px) scale(1.1); }
-  }
-
-  .grid-pattern {
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(rgba(108, 43, 217, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(108, 43, 217, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-
-  .floating-shapes {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-
-  .shape {
-    position: absolute;
-    border-radius: 50%;
-    animation: float 20s infinite ease-in-out;
-  }
-
-  .shape-1 {
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(108, 43, 217, 0.1) 0%, transparent 70%);
-    top: 30%;
-    right: 15%;
-  }
-
-  .shape-2 {
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%);
-    bottom: 20%;
-    left: 10%;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(20px, -20px); }
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    max-width: 800px;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(108, 43, 217, 0.1);
-    border: 1px solid rgba(108, 43, 217, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    color: var(--purple-primary);
-    font-weight: 500;
-    margin-bottom: 1.5rem;
-  }
-
-  .badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--purple-primary);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.3); }
-  }
-
-  .hero h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--gray-800);
-    line-height: 1.15;
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .hero p {
-    font-size: 1.2rem;
-    color: var(--gray-600);
-    margin-bottom: 2rem;
-    line-height: 1.7;
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-light) 100%);
-    color: var(--white);
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.35);
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--white);
-    color: var(--gray-800);
-    padding: 1rem 2rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    border: 2px solid var(--gray-200);
-    transition: all 0.3s ease;
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--purple-primary);
-    color: var(--purple-primary);
-  }
-
   /* Latest Section */
   .latest-section {
-    padding: 6rem 2rem;
-    background: var(--white);
+    padding: 6rem 0;
+    background: var(--bg-main);
+    border-top: 1px solid var(--border-color);
   }
 
   .section-header {
-    text-align: center;
     margin-bottom: 3rem;
   }
 
   .section-header h2 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: var(--gray-800);
+    color: var(--white);
     margin-bottom: 0.5rem;
   }
 
   .section-header p {
-    color: var(--gray-600);
+    color: var(--gray-500);
     font-size: 1.1rem;
   }
 
   .posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .post-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     overflow: hidden;
     transition: all 0.4s ease;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
 
   .post-card.animate {
@@ -379,9 +157,8 @@ const latestPosts = sortedPosts.slice(0, 6);
   }
 
   .post-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(108, 43, 217, 0.3);
-    box-shadow: 0 20px 50px rgba(108, 43, 217, 0.12);
+    border-color: var(--purple-primary);
+    transform: translateY(-4px);
   }
 
   .post-link {
@@ -397,13 +174,13 @@ const latestPosts = sortedPosts.slice(0, 6);
 
   .post-image img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
 
   .post-card:hover .post-image img {
-    transform: scale(1.08);
+    transform: scale(1.05);
   }
 
   .post-category {
@@ -412,53 +189,51 @@ const latestPosts = sortedPosts.slice(0, 6);
     left: 1rem;
     background: var(--purple-primary);
     color: var(--white);
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   .post-content {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .post-meta {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--gray-500);
     margin-bottom: 0.75rem;
   }
 
   .post-content h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: var(--gray-800);
     margin-bottom: 0.5rem;
     line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+
+  .post-card:hover h3 {
+    color: var(--purple-primary);
   }
 
   .post-content p {
-    color: var(--gray-600);
+    color: var(--gray-500);
     font-size: 0.9rem;
     line-height: 1.6;
-    margin-bottom: 1rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .read-more {
-    color: var(--purple-primary);
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-
   .view-all-wrapper {
-    text-align: center;
     margin-top: 3rem;
   }
 
@@ -466,25 +241,41 @@ const latestPosts = sortedPosts.slice(0, 6);
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--gray-800);
-    color: var(--white);
-    padding: 1rem 2rem;
-    border-radius: 50px;
+    background: #f1f5f9;
+    color: var(--gray-800);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
   }
 
   .view-all-btn:hover {
     background: var(--purple-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(108, 43, 217, 0.3);
+    color: var(--white);
+    transform: translateY(-2px);
   }
 
   /* Categories Section */
   .categories-section {
-    padding: 6rem 2rem;
-    background: var(--gray-50);
+    padding: 6rem 0;
+    background: var(--bg-main);
+    border-top: 1px solid var(--border-color);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple-light);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
   }
 
   .categories-grid {
@@ -494,35 +285,17 @@ const latestPosts = sortedPosts.slice(0, 6);
   }
 
   .category-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     padding: 2rem;
     text-decoration: none;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .category-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
   }
 
   .category-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-  }
-
-  .category-card:hover::before {
-    transform: scaleX(1);
+    border-color: var(--accent);
+    transform: translateY(-4px);
   }
 
   .category-icon {
@@ -532,23 +305,22 @@ const latestPosts = sortedPosts.slice(0, 6);
 
   .category-card h3 {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: var(--gray-800);
     margin-bottom: 0.5rem;
   }
 
   .category-card p {
-    color: var(--gray-600);
+    color: var(--gray-500);
     font-size: 0.9rem;
     line-height: 1.5;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .category-arrow {
-    color: var(--purple-primary);
-    font-size: 1.5rem;
-    font-weight: 600;
+    color: var(--purple-light);
+    font-size: 1.2rem;
     transition: transform 0.3s ease;
   }
 
