@@ -11,17 +11,13 @@ import { getCollection } from 'astro:content';
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
-const categories = [
-  { name: 'AI Trends', icon: '🤖', color: '#8b5cf6' },
-  { name: 'Dev Build', icon: '💻', color: '#10b981' },
-  { name: 'Dev Tools', icon: '🔧', color: '#f59e0b' },
-  { name: 'Tech Gear', icon: '📱', color: '#ef4444' }
-];
-
 const latestPosts = sortedPosts.slice(0, 6);
 ---
 
-<Layout title="AI Dev Daily - Your Daily AI News Hub">
+<Layout 
+  title="AI Dev Daily - Your Daily AI News Hub"
+  description="Stay ahead of the curve with the latest AI news, developer tutorials, and curated AI tools. Your daily destination for artificial intelligence research and development."
+>
   <Loader />
   <Header />
   <main>
@@ -68,28 +64,7 @@ const latestPosts = sortedPosts.slice(0, 6);
     </section>
 
     <!-- Categories -->
-    <section class="categories-section" id="categories">
-      <div class="container">
-        <div class="section-header">
-          <div class="header-badge">Taxonomy</div>
-          <h2>Explore Topics</h2>
-          <p>Filtered research and news by category</p>
-        </div>
-        <div class="categories-grid">
-          {categories.map((cat, index) => (
-            <a href="/blog" class="category-card" data-animate="card" style={`--delay: ${index * 0.1}s; --accent: ${cat.color}`}>
-              <div class="category-icon">{cat.icon}</div>
-              <h3>{cat.name}</h3>
-              <p>{cat.name === 'AI Trends' ? 'Latest breakthroughs and innovations' : 
-                  cat.name === 'Dev Build' ? 'Tutorials and how-to guides' : 
-                  cat.name === 'Dev Tools' ? 'Reviews and recommendations' : 
-                  'Gadgets and hardware'}</p>
-              <span class="category-arrow">→</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+    <Categories />
 
     <!-- Newsletter -->
     <Newsletter />
@@ -126,7 +101,7 @@ const latestPosts = sortedPosts.slice(0, 6);
     font-family: 'Space Grotesk', sans-serif;
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--white);
+    color: var(--gray-800);
     margin-bottom: 0.5rem;
   }
 

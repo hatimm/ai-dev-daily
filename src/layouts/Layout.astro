@@ -1,9 +1,21 @@
 ---
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string | URL;
+  type?: 'website' | 'article';
 }
 
-const { title } = Astro.props;
+const { 
+  title, 
+  description = "AI Dev Daily - Your daily source for AI news, tutorials, and developer tools",
+  image = "https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-270x270.png",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site),
+  type = 'website'
+} = Astro.props;
+
+const siteName = "AI Dev Daily";
 ---
 
 <!doctype html>
@@ -11,18 +23,54 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="AI Dev Daily - Your daily source for AI news, tutorials, and developer tools" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content={siteName} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-32x32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-192x192.png" />
     <link rel="apple-touch-icon" href="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-180x180.png" />
     <meta name="msapplication-TileImage" content="https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-270x270.png" />
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>{title}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": siteName,
+      "url": "https://aidevdaily.com",
+      "logo": "https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-270x270.png",
+      "sameAs": [
+        "https://twitter.com/aidevdaily",
+        "https://linkedin.com/company/aidevdaily"
+      ]
+    })} />
   </head>
   <body>
     <!-- Reading Progress Bar -->

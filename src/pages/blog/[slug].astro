@@ -22,7 +22,32 @@ const relatedPosts = allPosts
   .slice(0, 3);
 ---
 
-<Layout title={`${post.data.title} - AI Dev Daily`}>
+<Layout 
+  title={`${post.data.title} - AI Dev Daily`}
+  description={post.data.excerpt}
+  image={post.data.image}
+  type="article"
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.data.title,
+    "description": post.data.excerpt,
+    "image": post.data.image,
+    "author": {
+      "@type": "Person",
+      "name": post.data.author
+    },
+    "datePublished": post.data.date,
+    "publisher": {
+      "@type": "Organization",
+      "name": "AI Dev Daily",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aidevdaily.com/wp-content/uploads/2025/02/cropped-AIDEVDAILY-Logo-Original-5000x5000-1-270x270.png"
+      }
+    }
+  })} />
   <Loader />
   <Header />
   <main>

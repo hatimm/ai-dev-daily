@@ -13,47 +13,57 @@ const categories = [
     <div class="bg-shape shape-2"></div>
   </div>
   
-  <div class="section-header">
-    <div class="header-badge">
-      <span class="badge-dot"></span>
-      Browse by Topic
+  <div class="container">
+    <div class="section-header">
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        Browse by Topic
+      </div>
+      <h2>Explore Categories</h2>
+      <p>Find exactly what you're looking for across different AI domains</p>
     </div>
-    <h2>Explore Categories</h2>
-    <p>Find exactly what you're looking for across different AI domains</p>
   </div>
   
-  <div class="categories-grid">
-    {categories.map((category, index) => (
-      <a 
-        href={category.link}
-        class="category-card" 
-        data-animate="category"
-        style={`--delay: ${index * 0.08}s; --accent: ${category.color}`}
-      >
-        <div class="card-inner">
-          <div class="category-icon" style={`background: linear-gradient(135deg, ${category.color}15, ${category.color}08)`}>
-            <span style={`color: ${category.color}`}>{category.icon}</span>
+  <div class="container">
+    <div class="categories-grid">
+      {categories.map((category, index) => (
+        <a 
+          href={category.link}
+          class="category-card" 
+          data-animate="category"
+          style={`--delay: ${index * 0.08}s; --accent: ${category.color}`}
+        >
+          <div class="card-inner">
+            <div class="category-icon" style={`background: linear-gradient(135deg, ${category.color}15, ${category.color}08)`}>
+              <span style={`color: ${category.color}`}>{category.icon}</span>
+            </div>
+            <h4>{category.title}</h4>
+            <p>{category.description}</p>
+            <div class="card-arrow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </div>
           </div>
-          <h4>{category.title}</h4>
-          <p>{category.description}</p>
-          <div class="card-arrow">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-glow"></div>
-      </a>
-    ))}
+          <div class="card-glow"></div>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
   .categories-section {
-    padding: 7rem 2rem;
+    padding: 7rem 0;
     background: var(--gray-800);
     position: relative;
     overflow: hidden;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
 
   .categories-bg {

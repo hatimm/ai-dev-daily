@@ -30,13 +30,15 @@ const articles = [
 ---
 
 <section class="featured-section" id="featured">
-  <div class="section-header">
-    <div class="header-badge">
-      <span class="badge-dot"></span>
-      Latest Content
+  <div class="container">
+    <div class="section-header">
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        Latest Content
+      </div>
+      <h2>Featured Articles</h2>
+      <p>Discover the latest trends, tutorials, and insights from the world of AI</p>
     </div>
-    <h2>Featured Articles</h2>
-    <p>Discover the latest trends, tutorials, and insights from the world of AI</p>
   </div>
   
   <div class="featured-grid">
@@ -90,22 +92,30 @@ const articles = [
     ))}
   </div>
   
-  <div class="view-all-wrapper">
-    <a href="/blog" class="view-all-btn">
-      View All Articles
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-    </a>
+  <div class="container">
+    <div class="view-all-wrapper">
+      <a href="/blog" class="view-all-btn">
+        View All Articles
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
 <style>
   .featured-section {
-    padding: 6rem 2rem;
+    padding: 6rem 0;
     background: var(--bg-main);
     position: relative;
     overflow: hidden;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
 
   .featured-section::before {
